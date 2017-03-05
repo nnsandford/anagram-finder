@@ -14,4 +14,5 @@ public interface AnagramService
    void addWordsToDictionary(List<String> words);
    void deleteWordFromDictionary(String word);
    void deleteAllWords();
+   int deleteAllAnagrams(String anagram);
 }

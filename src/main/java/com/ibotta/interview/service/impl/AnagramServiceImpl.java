@@ -87,4 +87,15 @@ public class AnagramServiceImpl implements AnagramService
    {
       dictionary.clear();
    }
+
+   @Override
+   public int deleteAllAnagrams(String anagram)
+   {
+      List<Word> words = dictionary.get(Word.computeKey(anagram));
+      int count = words == null ? 0 : words.size();
+
+      words.clear();
+
+      return count;
+   }
 }
