@@ -18,9 +18,11 @@ public class AnagramResource
    private AnagramService anagramService;
 
    @RequestMapping(value = "/anagrams/{word}", method = RequestMethod.GET)
-   public AnagramsWrapper searchForAnagrams(@PathVariable("word") String word)
+   public AnagramsWrapper searchForAnagrams(@PathVariable("word") String word,
+                                            @RequestParam(value = "maxResults", required = false) Integer maxResults,
+                                            @RequestParam(value = "includeProperNouns", required = false, defaultValue = "true") boolean includeProperNouns)
    {
-      return anagramService.searchForAnagrams(word);
+      return anagramService.searchForAnagrams(word, maxResults, includeProperNouns);
    }
 
    @RequestMapping(value = "/words", method = RequestMethod.GET)
@@ -29,7 +31,7 @@ public class AnagramResource
       return anagramService.retrieveAllWords();
    }
 
-   @RequestMapping(value = "/words", method = RequestMethod.POST, consumes = "application/json")
+   @RequestMapping(value = "/words", method = RequestMethod.POST)
    public void addWordsToDictionary(@RequestBody WordWrapper wrapper)
    {
       anagramService.addWordsToDictionary(wrapper.getWords());

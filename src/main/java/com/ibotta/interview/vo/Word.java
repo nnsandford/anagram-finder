@@ -36,4 +36,9 @@ public class Word
    {
       return key;
    }
+
+   public boolean isProperNoun()
+   {
+      return properNoun;
+   }
 }

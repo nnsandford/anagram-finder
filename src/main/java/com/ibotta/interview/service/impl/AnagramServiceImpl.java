@@ -19,12 +19,14 @@ public class AnagramServiceImpl implements AnagramService
    private Map<String, List<Word>> dictionary;
 
    @Override
-   public AnagramsWrapper searchForAnagrams(String word)
+   public AnagramsWrapper searchForAnagrams(String word, Integer maxResults, boolean includeProperNouns)
    {
       List<Word> words = dictionary.get(Word.computeKey(word));
 
       return words == null ? new AnagramsWrapper() : new AnagramsWrapper(words.stream()
+            .filter(w -> !w.isProperNoun() || includeProperNouns)
             .filter(w -> !w.getWord().equalsIgnoreCase(word))
+            .limit(maxResults != null ? maxResults : words.size())
             .map(Word::getWord)
             .collect(Collectors.toList()));
    }

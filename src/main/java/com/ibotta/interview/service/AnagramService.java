@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface AnagramService
 {
-   AnagramsWrapper searchForAnagrams(String word);
+   AnagramsWrapper searchForAnagrams(String word, Integer maxResults, boolean includeProperNouns);
    List<String> retrieveAllWords();
    void addWordsToDictionary(List<String> words);
    void deleteWordFromDictionary(String word);
