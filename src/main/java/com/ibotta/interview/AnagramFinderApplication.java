@@ -7,9 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.Resource;
 
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +32,8 @@ public class AnagramFinderApplication {
 	{
 		try
 		{
-			return Files.lines(Paths.get(resource.getURI()))
+			return new BufferedReader(new InputStreamReader(resource.getInputStream()))
+					.lines()
 					.map(Word::new)
 					.collect(groupingBy(Word::getKey));
 		}
