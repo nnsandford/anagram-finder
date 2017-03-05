@@ -4,6 +4,8 @@ import com.ibotta.interview.service.AnagramService;
 import com.ibotta.interview.vo.AnagramsWrapper;
 import com.ibotta.interview.vo.WordWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,7 +21,7 @@ public class AnagramResource
 
    @RequestMapping(value = "/anagrams/{word}", method = RequestMethod.GET)
    public AnagramsWrapper searchForAnagrams(@PathVariable("word") String word,
-                                            @RequestParam(value = "maxResults", required = false) Integer maxResults,
+                                            @RequestParam(value = "limit", required = false) Integer maxResults,
                                             @RequestParam(value = "includeProperNouns", required = false, defaultValue = "true") boolean includeProperNouns)
    {
       return anagramService.searchForAnagrams(word, maxResults, includeProperNouns);
@@ -32,9 +34,11 @@ public class AnagramResource
    }
 
    @RequestMapping(value = "/words", method = RequestMethod.POST)
-   public void addWordsToDictionary(@RequestBody WordWrapper wrapper)
+   public ResponseEntity addWordsToDictionary(@RequestBody WordWrapper wrapper)
    {
       anagramService.addWordsToDictionary(wrapper.getWords());
+
+      return new ResponseEntity(HttpStatus.CREATED);
    }
 
    @RequestMapping(value = "/words/{word}", method = RequestMethod.DELETE)
@@ -44,8 +48,10 @@ public class AnagramResource
    }
 
    @RequestMapping(value = "/words", method = RequestMethod.DELETE)
-   public void deleteAllWords()
+   public ResponseEntity deleteAllWords()
    {
       anagramService.deleteAllWords();
+
+      return new ResponseEntity(HttpStatus.NO_CONTENT);
    }
 }
