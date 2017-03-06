@@ -33,7 +33,7 @@ public class AnagramResource
       return ResponseEntity.ok().body(anagramService.searchForAnagrams(word, maxResults, includeProperNouns));
    }
 
-   @RequestMapping(value = "/words", method = RequestMethod.GET)
+   @RequestMapping(value = "/words.json", method = RequestMethod.GET)
    public List<String> retrieveAllWords()
    {
       return anagramService.retrieveAllWords();
