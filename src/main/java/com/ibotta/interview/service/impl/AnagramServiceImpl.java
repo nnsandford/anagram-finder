@@ -42,7 +42,7 @@ public class AnagramServiceImpl implements AnagramService
    }
 
    @Override
-   public void addWordsToDictionary(List<String> words)
+   public synchronized void addWordsToDictionary(List<String> words)
    {
       for (String word : words)
       {
@@ -61,7 +61,7 @@ public class AnagramServiceImpl implements AnagramService
    }
 
    @Override
-   public void deleteWordFromDictionary(String word)
+   public synchronized void deleteWordFromDictionary(String word)
    {
       List<Word> words = dictionary.get(Word.computeKey(word));
 
@@ -83,13 +83,13 @@ public class AnagramServiceImpl implements AnagramService
    }
 
    @Override
-   public void deleteAllWords()
+   public synchronized void deleteAllWords()
    {
       dictionary.clear();
    }
 
    @Override
-   public int deleteAllAnagrams(String anagram)
+   public synchronized int deleteAllAnagrams(String anagram)
    {
       List<Word> words = dictionary.get(Word.computeKey(anagram));
       int count = words == null ? 0 : words.size();
